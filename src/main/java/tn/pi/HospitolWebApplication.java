@@ -4,7 +4,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import tn.pi.entities.Adherent;
 import tn.pi.entities.Patient;
+import tn.pi.repositories.AdherentRepository;
 import tn.pi.repositories.PatientRepository;
 
 import java.time.LocalDate;
@@ -17,28 +19,16 @@ public class HospitolWebApplication {
 		SpringApplication.run(HospitolWebApplication.class, args);
 	}
 	@Bean
-	public CommandLineRunner init(PatientRepository patientRepository) {
+	public CommandLineRunner init2(AdherentRepository adherentRepository) {
 		return args -> {
-			//Methode 1
-			Patient p1 = new Patient();
-			p1.setNom("Hassen");
-			p1.setDateNaiss(LocalDate.now());
-			p1.setScore(1234);
-			p1.setMalade(false);
-			patientRepository.save(p1);
-			//Methode 2
-			Patient p2 = new Patient(null,"Mohamed",LocalDate.now(),true,3324);
-			patientRepository.save(p2);
-			//Methode 3 : using lombok
-			Patient p3 = Patient.builder()
-					.dateNaiss(LocalDate.now())
-					.nom("Aicha")
-					.score(5631)
-					.malade(false)
+			Adherent a1 = Adherent.builder()
+					.nom_adherent("test")
+					.prenom_adherent("aziz")
+					.age(23)
+					.email("test@test.com")
+					.date_inscription(LocalDate.now())
 					.build();
-			patientRepository.save(p3);
-
-
+			adherentRepository.save(a1);
 		};
 	}
 
